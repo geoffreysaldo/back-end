@@ -1,0 +1,173 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Yet Another Node.js Blogg Application API",
+      "description": "Yet Another Node.js Blogg Application API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3001",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Products",
+        "description": "API for Products in the system"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/category": {
+        "post": {
+          "tags": [
+            "Products"
+          ],
+          "summary": "Create a product",
+          "description": "Create new product in system",
+          "parameters": [
+            {
+              "name": "product",
+              "in": "body",
+              "description": "Product we want to create",
+              "schema": {
+                "$ref": "#/definitions/Category"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "New product is created",
+              "schema": {
+                "$ref": "#/definitions/Category"
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Products"
+          ],
+          "summary": "Get all products" ,
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Category"
+              }
+            }
+          }
+        }
+      },
+      "/category/{category}/{name}/{price}":{
+        "put":{
+          "summary":"Update the price of a product",
+          "tags":[
+            "Products"
+          ],
+          "parameters":[
+            {
+              "name":"category",
+              "in":"path",
+              "description":"Category of the product",
+              "required":true,
+              "schema":{
+                "type":"string"
+              }
+            },
+            {
+              "name":"name",
+              "in":"path",
+              "description":"Name of the product",
+              "required":true,
+              "schema":{
+                "type":"string"
+              }
+            },
+            {
+              "name":"price",
+              "in":"path",
+              "description":"New price of the product",
+              "required":true,
+              "schema":{
+                "type":"float"
+              }
+            }
+          ],
+          "responses":{
+            "200": {
+              "description":"Product is updated",
+              "schema":{
+                "$ref":"#/definitions/Category"
+              }
+            }
+          }
+        }
+      },
+      "/category/{category}/{name}":{
+        "delete":{
+          "summary":"Delete the product",
+          "tags":[
+            "Products"
+          ],
+          "parameters":[
+            {
+              "name":"category",
+              "in":"path",
+              "description":"Category of the product",
+              "required":true,
+              "schema":{
+                "type":"string"
+              }
+            },
+            {
+              "name":"name",
+              "in":"path",
+              "description":"Name of the product",
+              "required":true,
+              "schema":{
+                "type":"string"
+              }
+            }
+          ],
+          "responses":{
+            "200":{
+              "description":"product is deleted",
+              "schema":{
+                "$ref":"#/definitions/Category"
+              }
+            }
+          }
+        }
+      }   
+    },
+  "definitions": {
+    "Category":{
+      "type":"object",
+      "properties":{
+        "category":{"type":"string"},
+        "products":{"type":"array","items":{
+                        "type":"object",
+                        "properties":{
+                            "name":{"type":"string"},
+                            "price":{"type":"integer"}
+                        }
+                }
+            }
+      }
+    }
+  }
+}
+  
