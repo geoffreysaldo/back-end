@@ -8,7 +8,7 @@ let router = express.Router();
 let swaggerUi = require('swagger-ui-express');
 let swaggerDocument = require('./swagger.json');
 
-/*************** 
+/***************
  * Databse connection
  ***************/
 app.use(cors());
@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-/*************** 
+/***************
  * Schema definition
  ***************/
 
@@ -42,7 +42,7 @@ let ProductSchema = new mongoose.Schema({
     name:String,
     price:Number
   })
-  
+
 let Product = mongoose.model('Product',ProductSchema);
 
 let CategorySchema = new mongoose.Schema({
@@ -54,7 +54,7 @@ let CategorySchema = new mongoose.Schema({
 let Category = mongoose.model('Category',CategorySchema);
 
 
-/*************** 
+/***************
  * Request API
  ***************/
 
@@ -70,7 +70,7 @@ let updateProduct = function(req, res, next){
 
 
 
-  let getCategory = function(req,res,next){
+  let getCategories = function(req,res,next){
     Category.find(function(err,products){
       if(err){
         res.send(err);
@@ -80,8 +80,7 @@ let updateProduct = function(req, res, next){
   }
 
 
-  let getSpecCategory = function(req,res,next){
-      console.log("passage")
+  let getCategory = function(req,res,next){
       Category.find({"category":req.params.category},function(err,products){
         if(err){
           res.send(err);
@@ -90,7 +89,7 @@ let updateProduct = function(req, res, next){
       })
 
   }
-  
+
   let createCategory = function(req, res, next){
     let newCategory = new Category();
     let newProducts = [];
@@ -117,13 +116,14 @@ let updateProduct = function(req, res, next){
     })
   }
 
+router.route('/categories')
+    .get(getCategories);
 
 router.route('/category')
   .post(createCategory)
-  .get(getCategory);
 
 router.route('/category/:category')
-  .get(getSpecCategory)
+  .get(getCategory)
 
 
 router.route('/category/:category/:name/:price')

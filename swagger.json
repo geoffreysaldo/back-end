@@ -27,6 +27,23 @@
       "application/json"
     ],
     "paths": {
+      "/categories":{
+        "get": {
+          "tags": [
+            "Products"
+          ],
+          "summary": "Get all products" ,
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type":"array",
+                "items": "#/definitions/Category"
+              }
+            }
+          }
+        }
+      },
       "/category": {
         "post": {
           "tags": [
@@ -55,11 +72,23 @@
               }
             }
           }
-        },
+        }
+      },
+      "/category/{category}":{
         "get": {
           "tags": [
             "Products"
           ],
+          "parameters":
+            [{
+              "name":"category",
+              "in":"path",
+              "description":"Category of the product",
+              "required":true,
+              "schema":{
+                "type":"string"
+              }
+            }],
           "summary": "Get all products" ,
           "responses": {
             "200": {
@@ -151,7 +180,7 @@
             }
           }
         }
-      }   
+      }
     },
   "definitions": {
     "Category":{
@@ -170,4 +199,3 @@
     }
   }
 }
-  
